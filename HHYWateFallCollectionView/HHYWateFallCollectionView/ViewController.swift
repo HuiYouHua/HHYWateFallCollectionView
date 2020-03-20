@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.dataSouce = self
+        layout.dataSource = self
         
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -46,11 +46,7 @@ extension UIViewController: UICollectionViewDataSource {
 }
 
 extension UIViewController: HHYWaterFallLayoutDataSouce {
-    func numberOfCols(_ waterFall: HHYWaterFallLayout) -> Int {
-        return 2
-    }
-    
-    func waterFall(_ WaterFall: HHYWaterFallLayout, indexPath: IndexPath) -> CGFloat {
+    func waterfallLayout(_ layout: HHYWaterFallLayout, indexPath: IndexPath) -> CGFloat {
         return CGFloat(arc4random_uniform(100) + 100)
     }
 }
