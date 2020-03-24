@@ -12,6 +12,8 @@ private let kCollectionID = "kCollectionID"
 
 class ViewController: UIViewController {
 
+    fileprivate var cellCount: Int = 50
+    
     fileprivate lazy var collectionView: UICollectionView = {
 
         let layout = HHYWaterFallLayout()
@@ -28,24 +30,29 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(collectionView)
     }
 }
 
-extension UIViewController: UICollectionViewDataSource {
+extension ViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return cellCount
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCollectionID, for: indexPath)
         cell.contentView.backgroundColor = UIColor.randomColor()
+        
+        if indexPath.item == cellCount - 1 {
+            cellCount += 30
+            collectionView.reloadData()
+        }
+        
         return cell
     }
 }
 
-extension UIViewController: HHYWaterFallLayoutDataSouce {
+extension ViewController: HHYWaterFallLayoutDataSouce {
     func waterfallLayout(_ layout: HHYWaterFallLayout, indexPath: IndexPath) -> CGFloat {
         return CGFloat(arc4random_uniform(100) + 100)
     }
